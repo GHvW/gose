@@ -11,7 +11,7 @@ I'm wondering if Go style error handling can give us a convention for error hand
 Power users can extend the tuple convention with their own sets of methods. Developers who just want to get data and get on with it can use tranditional null checking and move on.
 
 
-#### Background
+#### Go Error Handling for the Uninitiated
 
 [Go](https://golang.org/) has no concept of "throwing" exceptions and "catching" them. 
 If an error occurs, it's either handled immediately, or returned by the function where the error occurred.
@@ -36,9 +36,59 @@ No `try/catch` no `throw`. In some ways it reminds me of a less robust `Either` 
 
 Go is able to enforce the convention with a great suite of tools. Could we do something similar in C#?
 
+## The Convention
+I don't write a lot of Go, or really any. My experience with it is primarily for study. Because of that I can never remember which
+side the error goes on in the tuple. Sometimes it's the same for `Result` in F#. Haskell's `Either`, when used for errors, has "Success" on the right and the "Error" on the left. It's easy for me to remember because "right is right". Since "right" is somewhat analogous to "success" it's
+easy to remember, so I do the same here. In the tuple, the left side is the error side, and the right is the success side.
+```chsarp
+(error, success)
+```
+Unfortunately this differs from Go's convention. Windows' idea to switch up the file path slash to `\` instead of `/` was fine right? :laughing:
+
 #### Where gose fits
 
 This library is an exploration of a set of those power user extensions on top of this convetion.
 I also want to investigate if a rosalyn analyzer could provide compile time and/or in editor checks to make sure the convention is used correctly.
 
-## Example usage
+## Examples
+#### Error in first result retains error through the expression
+```csharp
+(string? Error, int? Data) first = ("no data available", null); 
+(string? Error, int? Data) second = (null, 20);
+
+var result = 
+    (from x in first
+        from y in second
+        select x + y);
+
+Assert.Equal("no data available", result.Error);
+Assert.Null(result.Data);
+```
+
+#### Error in second result
+```csharp
+(string? Error, int? Data) first = (null, 10); 
+(string? Error, int? Data) second = ("divide by zero", null);
+
+var result = 
+    (from x in first
+        from y in second
+        select x + y);
+
+Assert.Equal("divide by zero", result.Error);
+Assert.Null(result.Data);
+```
+
+#### Success in both results allows calculation
+```csharp
+(string? Error, int? Data) first = (null, 10); 
+(string? Error, int? Data) second = (null, 20);
+
+var result = 
+    (from x in first
+        from y in second
+        select x + y);
+
+Assert.Equal(30, result.Data);
+Assert.Null(result.Error);
+```
