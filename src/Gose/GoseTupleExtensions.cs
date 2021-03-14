@@ -44,6 +44,14 @@ namespace Gose {
                 _ => (default, @this.Data)
             };
 
+        public static (Err? Error, Data? Data) Select<Err, Data>(
+            this (Err? Error, Data? Data) @this,
+            (Err? Error, Data? Data) other) =>
+            @this switch {
+                (Err _e, null) => other,
+                _ => @this
+            };
+
         // no need for a `ToNullable`, can just use `.Data` since its already nullable
         // no need for `UnwrapOr`, can use `.Data ?? <value>`
     }

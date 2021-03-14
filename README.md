@@ -38,8 +38,8 @@ Go is able to enforce the convention with a great suite of tools. Could we do so
 
 ## The Convention
 I don't write a lot of Go, or really any. My experience with it is primarily for study. Because of that I can never remember which
-side the error goes on in the tuple. Sometimes it's the same for `Result` in F#. Haskell's `Either`, when used for errors, has "Success" on the right and the "Error" on the left. It's easy for me to remember because "right is right". Since "right" is somewhat analogous to "success" it's
-easy to remember, so I do the same here. In the tuple, the left side is the error side, and the right is the success side.
+side the error goes on in the tuple. Sometimes it's the same for `Result` in F#. Haskell's `Either`, when used for errors, has "Success" on the right and the "Error" on the left. It's easy for me to remember because "right is right" since "right" is somewhat analogous to "success". 
+I'm hoping it's as easy to remember for others, so in the tuple, the convention I use is the left side is the error side, and the right is the success side.
 ```chsarp
 (error, success)
 ```
