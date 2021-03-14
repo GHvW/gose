@@ -58,8 +58,8 @@ I also want to investigate if a rosalyn analyzer could provide compile time and/
 
 var result = 
     (from x in first
-        from y in second
-        select x + y);
+     from y in second
+     select x + y);
 
 Assert.Equal("no data available", result.Error);
 Assert.Null(result.Data);
@@ -72,8 +72,8 @@ Assert.Null(result.Data);
 
 var result = 
     (from x in first
-        from y in second
-        select x + y);
+     from y in second
+     select x + y);
 
 Assert.Equal("divide by zero", result.Error);
 Assert.Null(result.Data);
@@ -86,8 +86,8 @@ Assert.Null(result.Data);
 
 var result = 
     (from x in first
-        from y in second
-        select x + y);
+     from y in second
+     select x + y);
 
 Assert.Equal(30, result.Data);
 Assert.Null(result.Error);
