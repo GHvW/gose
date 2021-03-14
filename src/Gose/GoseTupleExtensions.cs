@@ -43,5 +43,8 @@ namespace Gose {
                 (Err e, null) => (fn(e), default),
                 _ => (default, @this.Data)
             };
+
+        // no need for a `ToNullable`, can just use `.Data` since its already nullable
+        // no need for `UnwrapOr`, can use `.Data ?? <value>`
     }
 }
