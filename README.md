@@ -45,7 +45,7 @@ easy to remember, so I do the same here. In the tuple, the left side is the erro
 ```
 Unfortunately this differs from Go's convention. Windows' idea to switch up the file path slash to `\` instead of `/` was fine right? :laughing:
 
-#### Where gose fits
+## Where gose fits
 
 This library is an exploration of a set of those power user extensions on top of this convetion.
 I also want to investigate if a rosalyn analyzer could provide compile time and/or in editor checks to make sure the convention is used correctly.
