@@ -53,42 +53,42 @@ I also want to investigate if a rosalyn analyzer could provide compile time and/
 ## Examples
 #### Error in first result retains error through the expression
 ```csharp
-(string? Error, int? Data) first = ("no data available", null); 
+(string? Error, int? Data) first = ("no data available", null);
 (string? Error, int? Data) second = (null, 20);
 
-var result = 
+var (error, data) =
     (from x in first
      from y in second
      select x + y);
 
-Assert.Equal("no data available", result.Error);
-Assert.Null(result.Data);
+Assert.Equal("no data available", error);
+Assert.Null(data);
 ```
 
 #### Error in second result
 ```csharp
-(string? Error, int? Data) first = (null, 10); 
+(string? Error, int? Data) first = (null, 10);
 (string? Error, int? Data) second = ("divide by zero", null);
 
-var result = 
+var (error, data) =
     (from x in first
      from y in second
      select x + y);
 
-Assert.Equal("divide by zero", result.Error);
-Assert.Null(result.Data);
+Assert.Equal("divide by zero", error);
+Assert.Null(data);
 ```
 
 #### Success in both results allows calculation
 ```csharp
-(string? Error, int? Data) first = (null, 10); 
+(string? Error, int? Data) first = (null, 10);
 (string? Error, int? Data) second = (null, 20);
 
-var result = 
+var (error, data) =
     (from x in first
      from y in second
      select x + y);
 
-Assert.Equal(30, result.Data);
-Assert.Null(result.Error);
+Assert.Equal(30, data);
+Assert.Null(error);
 ```
